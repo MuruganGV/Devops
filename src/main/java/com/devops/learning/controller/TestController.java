@@ -10,6 +10,6 @@ public class TestController {
 
     @GetMapping(value = "/getData")
     public String getData() {
-        return "Response from controller";
+        return "Response from Test controller";
     }
 }
