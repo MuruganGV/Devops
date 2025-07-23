@@ -11,7 +11,7 @@ pipelines:
       - BuildAndPush:
           jobs:
             docker-job:
-              resources: [docker]
+              resources: docker
               environment_variables:
                 DOCKER_IMAGE: murugangv/springboot-app
               tasks:
