@@ -18,19 +18,24 @@ pipelines:
               environment_variables:
                 DOCKER_IMAGE: murugangv/springboot-app
               tasks:
-                - script: |
-                    echo "▶ Building JAR"
-                    ./mvnw clean package -DskipTests
+                - exec:
+                    command: bash
+                    arguments:
+                      - -c
+                      - |
+                        echo "▶ Building JAR"
+                        ./mvnw clean package -DskipTests
 
-                    echo "▶ Building Docker image"
-                    docker build -t $DOCKER_IMAGE:latest .
+                        echo "▶ Building Docker image"
+                        docker build -t $DOCKER_IMAGE:latest .
 
-                    echo "▶ Tagging with commit hash"
-                    GIT_HASH=$(git rev-parse --short HEAD)
-                    docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$GIT_HASH
+                        echo "▶ Tagging with commit hash"
+                        GIT_HASH=$(git rev-parse --short HEAD)
+                        docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$GIT_HASH
 
-                    echo "▶ Pushing images to Docker Hub"
-                    docker push $DOCKER_IMAGE:latest
-                    docker push $DOCKER_IMAGE:$GIT_HASH
+                        echo "▶ Pushing images to Docker Hub"
+                        docker push $DOCKER_IMAGE:latest
+                        docker push $DOCKER_IMAGE:$GIT_HASH
 
-                    echo "✅ Done: $DOCKER_IMAGE pushed with tags latest and $GIT_HASH"
+                        echo "✅ Done: $DOCKER_IMAGE pushed with tags latest and $GIT_HASH"
+              
