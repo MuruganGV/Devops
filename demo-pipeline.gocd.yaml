@@ -1,4 +1,5 @@
 format_version: 10
+
 pipelines:
   springboot-docker-pipeline:
     group: springboot
@@ -7,11 +8,13 @@ pipelines:
       source-code:
         git: https://github.com/MuruganGV/Devops.git
         branch: main
+
     stages:
       - BuildAndPush:
           jobs:
             docker-job:
-              resources: docker
+              resources:
+                - docker
               environment_variables:
                 DOCKER_IMAGE: murugangv/springboot-app
               tasks:
